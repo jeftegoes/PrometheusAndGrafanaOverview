@@ -1,17 +1,18 @@
 - [1. Telemetry](#1-telemetry)
   - [1.1. What is Telemetry?](#11-what-is-telemetry)
   - [1.2. Examples of Telemetric Data](#12-examples-of-telemetric-data)
-  - [1.3. Whats is the challenge?](#13-whats-is-the-challenge)
+  - [1.3. What's is the challenge?](#13-whats-is-the-challenge)
   - [1.4. Grafana](#14-grafana)
-  - [1.5. What is Graphinte?](#15-what-is-graphinte)
-    - [1.5.1. Buckets in Graphite](#151-buckets-in-graphite)
-  - [What is StatsD?](#what-is-statsd)
+  - [1.5. Alerts in Grafana](#15-alerts-in-grafana)
+- [2. Integrations](#2-integrations)
+  - [2.1. AWS CloudWatch](#21-aws-cloudwatch)
+- [3. Administration](#3-administration)
 
 # 1. Telemetry
 
 ## 1.1. What is Telemetry?
 
-- Telemetry is the automatic recording and transmission of data from remote or inacessible sources to an IT system in a different location form monitoring and analysis.
+- Telemetry is the automatic recording and transmission of data from remote or inaccessible sources to an IT system in a different location form monitoring and analysis.
 
 ## 1.2. Examples of Telemetric Data
 
@@ -19,9 +20,9 @@
 - The number of received orders per minute.
 - The average value of refunds per day.
 
-## 1.3. Whats is the challenge?
+## 1.3. What's is the challenge?
 
-- Organisations rely more and more on telemetric data.
+- Organizations rely more and more on telemetric data.
 - Companies want to bring different data together.
 - Telemetric data reside in different datasources.
 
@@ -33,27 +34,20 @@
 - Defines alerts.
 - Is extensible through plugins.
 
-## 1.5. What is Graphinte?
+## 1.5. Alerts in Grafana
 
-- Graphite is predominantly used for storing telemetric data.
-- Providers a rich set of functions to work with telemetric data.
-- Is free and open source.
-- Is easy to setup and use, and is enterprise-ready.
-- Supports timers, counters and gauges.
+- Alerts are defined Graph Panel.
+- Eachg Graph Panel can have one to many alerts.
+- Alerts rise when a Rule is violated.
+- A Rule indicates if a value on the graph is above or below a threshold.
+- Rules are stored in and evaluated by Rule Engine.
 
-### 1.5.1. Buckets in Graphite
+![Alert diagram](/Images/AlertDiagram.png)
 
-- A bucket is a collection of telemetry data.
-- Bucket tree is identified by a "." character. e.g. Shoes.Loafers.Count.
-- The value of a counter bucket is increased by the value it receives.
-- A ageuge bucket value is set by the valie it receives.
-- A timer's value is set by the value it receives.
+# 2. Integrations
 
-## What is StatsD?
+## 2.1. AWS CloudWatch
 
-- Is used for collecting data and passing them to Graphite.
-- Data is sent to StatsD as plain text.
-- By default works on UUDP protocol.
-- Data format is `<bucket>:<value>|Type`
-- Example: `Sales.Jackets:1|C`
+![CloudWatch Datasource diagram](/Images/CloudWatchDatasource.png)
 
+# 3. Administration
