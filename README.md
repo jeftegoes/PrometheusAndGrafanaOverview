@@ -1,3 +1,7 @@
+# Grafana overview <!-- omit in toc -->
+
+## Contents <!-- omit in toc -->
+
 - [1. Telemetry](#1-telemetry)
   - [1.1. What is Telemetry?](#11-what-is-telemetry)
   - [1.2. Examples of Telemetric Data](#12-examples-of-telemetric-data)
@@ -51,3 +55,5 @@
 ![CloudWatch Datasource diagram](/Images/CloudWatchDatasource.png)
 
 # 3. Administration
+
+![Administration diagram](/Images/AdministrationDiagram.png)
