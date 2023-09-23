@@ -14,15 +14,23 @@
 
 # 1. Telemetry
 
+![Telemetry diagram](Images/TelemetryDiagram.png)
+
 ## 1.1. What is Telemetry?
 
 - Telemetry is the automatic recording and transmission of data from remote or inaccessible sources to an IT system in a different location form monitoring and analysis.
+- In software refers to the collection of business and diagnosis data from the software in production, and store and visualise it for the purpose of diagnosing production issues or improving the business.
 
 ## 1.2. Examples of Telemetric Data
 
 - Average of time taken to connect to a database over time.
 - The number of received orders per minute.
 - The average value of refunds per day.
+- How many erros and exceptions?
+- What is the response time?
+- How many times api is called?
+- How many servers?
+- How many users from Brazil?
 
 ## 1.3. What's is the challenge?
 
