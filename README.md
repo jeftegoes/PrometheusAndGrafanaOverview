@@ -6,11 +6,17 @@
   - [1.1. What is Telemetry?](#11-what-is-telemetry)
   - [1.2. Examples of Telemetric Data](#12-examples-of-telemetric-data)
   - [1.3. What's is the challenge?](#13-whats-is-the-challenge)
-  - [1.4. Grafana](#14-grafana)
-  - [1.5. Alerts in Grafana](#15-alerts-in-grafana)
-- [2. Integrations](#2-integrations)
-  - [2.1. AWS CloudWatch](#21-aws-cloudwatch)
-- [3. Administration](#3-administration)
+- [2. Grafana](#2-grafana)
+  - [2.1. Alerts in Grafana](#21-alerts-in-grafana)
+  - [2.2. Integrations](#22-integrations)
+    - [2.2.1. AWS CloudWatch](#221-aws-cloudwatch)
+  - [2.3. Administration](#23-administration)
+- [3. Prometheus](#3-prometheus)
+  - [3.1. Push Gateway](#31-push-gateway)
+  - [3.2. Node Exporter](#32-node-exporter)
+  - [3.3. Scraping Wintows Metrics](#33-scraping-wintows-metrics)
+  - [3.4. Authentication](#34-authentication)
+- [4. Tips \& Tricks](#4-tips--tricks)
 
 # 1. Telemetry
 
@@ -38,7 +44,7 @@
 - Companies want to bring different data together.
 - Telemetric data reside in different datasources.
 
-## 1.4. Grafana
+# 2. Grafana
 
 - Visualizes Time Series (telemetry) Data.
   - Time Series data has time stamps attached to it: One Order at 01/01/2022.
@@ -46,7 +52,7 @@
 - Defines alerts.
 - Is extensible through plugins.
 
-## 1.5. Alerts in Grafana
+## 2.1. Alerts in Grafana
 
 - Alerts are defined Graph Panel.
 - Eachg Graph Panel can have one to many alerts.
@@ -56,12 +62,58 @@
 
 ![Alert diagram](/Images/AlertDiagram.png)
 
-# 2. Integrations
+## 2.2. Integrations
 
-## 2.1. AWS CloudWatch
+### 2.2.1. AWS CloudWatch
 
 ![CloudWatch Datasource diagram](/Images/CloudWatchDatasource.png)
 
-# 3. Administration
+## 2.3. Administration
 
 ![Administration diagram](/Images/AdministrationDiagram.png)
+
+# 3. Prometheus
+
+![Data Collection](Images/DataCollection.png)
+
+- **Push gateway**
+  - A push gateway is a component of Prometheus.
+    It's part of Prometheus, which what it does basically is that it acts as temporary storage, where application can send the metric to it.
+- **Third-party exporters**
+  - There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.
+  - This is useful for cases where it is not feasible to instrument a given system with Prometheus metrics directly (for example, HAProxy or Linux system stats).
+
+## 3.1. Push Gateway
+
+![Push Gateway](Images/PushGateway.png)
+
+## 3.2. Node Exporter
+
+- Every UNIX-based kernel e.g. computer is called a Node.
+- **Node Exporter** is an official Prometheus exporter for collecting metrics that are exposed by Unix-based kernls e.g. Linux and Ubuntu.
+- Example of metrics are CPU, Disk, Memory and Network I/O.
+- **Node Exporter** can be extended with pluggable metric collectors.
+
+## 3.3. Scraping Wintows Metrics
+
+- There is no official Prometheus exporter for Windows.
+- WMI: Windows Management Instrumentation.
+  - **Infrasctructure for management data and operations on Windows-based operating systems.**
+- WMS Exporter is a third-party Prometheus exporter for Windows.
+
+## 3.4. Authentication
+
+# 4. Tips & Tricks
+
+- Since the targets are not running inside the prometheus container, they cannot be accessed through localhost.
+- You need to access them through the host private IP or by replacing localhost with `docker.for.mac.localhost` or `host.docker.internal`.
+  - On Windows:
+    - `host.docker.internal` (tested on win10, win11)
+  - On Mac
+    - `docker.for.mac.localhost`
+  - Example:
+  ```
+    - job_name: "pushgateway"
+      static_configs:
+        - targets: ["host.docker.internal:9092"]
+  ```

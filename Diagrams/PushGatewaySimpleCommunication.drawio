@@ -1,0 +1,28 @@
+<mxfile host="Electron" modified="2023-11-18T02:16:49.738Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="-tytTOww6wTxJ1MmEQaT" version="22.1.2" type="device">
+  <diagram name="Page-1" id="js4asXEYVQyAi328x7jB">
+    <mxGraphModel dx="1098" dy="988" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="N7pMZV_FKsDlvpJTZbYz-7" value="pull" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="N7pMZV_FKsDlvpJTZbYz-1" target="N7pMZV_FKsDlvpJTZbYz-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="N7pMZV_FKsDlvpJTZbYz-1" value=":9090" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://brands.home-assistant.io/_/prometheus/logo@2x.png;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="550" y="530" width="221.68" height="72.05" as="geometry" />
+        </mxCell>
+        <mxCell id="N7pMZV_FKsDlvpJTZbYz-2" value=":9092" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://brands.home-assistant.io/_/prometheus/logo@2x.png;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="150.00000000000006" y="530" width="221.68" height="72.05" as="geometry" />
+        </mxCell>
+        <mxCell id="N7pMZV_FKsDlvpJTZbYz-6" value="push" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="N7pMZV_FKsDlvpJTZbYz-3" target="N7pMZV_FKsDlvpJTZbYz-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="N7pMZV_FKsDlvpJTZbYz-3" value="Application" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200.84" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="N7pMZV_FKsDlvpJTZbYz-5" value="Push Gateway" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=3;fontSize=15;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="238.00000000000003" y="575.05" width="130" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
