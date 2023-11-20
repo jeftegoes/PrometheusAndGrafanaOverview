@@ -12,15 +12,18 @@
     - [2.2.1. AWS CloudWatch](#221-aws-cloudwatch)
   - [2.3. Administration](#23-administration)
 - [3. Prometheus](#3-prometheus)
-  - [3.1. Service Discovery](#31-service-discovery)
-  - [3.2. Push Gateway](#32-push-gateway)
-  - [3.3. Node Exporter](#33-node-exporter)
-  - [3.4. Scraping Wintows Metrics](#34-scraping-wintows-metrics)
-  - [3.5. Authentication](#35-authentication)
-    - [3.5.1. Command to enable SSL / HTTPs](#351-command-to-enable-ssl--https)
-    - [3.5.2. Securing Push Gateway HTTPs + Auth](#352-securing-push-gateway-https--auth)
-    - [3.5.3. Securing Alert Manager](#353-securing-alert-manager)
+  - [3.1. Third-party exporters](#31-third-party-exporters)
+  - [3.2. Service Discovery](#32-service-discovery)
+  - [3.3. Push Gateway](#33-push-gateway)
+  - [3.4. Node Exporter](#34-node-exporter)
+  - [3.5. Scraping Wintows Metrics](#35-scraping-wintows-metrics)
+  - [3.6. Authentication](#36-authentication)
+    - [3.6.1. Command to enable SSL / HTTPs](#361-command-to-enable-ssl--https)
+    - [3.6.2. Securing Push Gateway HTTPs + Auth](#362-securing-push-gateway-https--auth)
+    - [3.6.3. Securing Alert Manager](#363-securing-alert-manager)
 - [4. Tips \& Tricks](#4-tips--tricks)
+  - [4.1. Docker](#41-docker)
+  - [4.2. Dotnet MetricServer](#42-dotnet-metricserver)
 
 # 1. Telemetry
 
@@ -78,50 +81,57 @@
 
 # 3. Prometheus
 
-![Data Collection](Images/DataCollection.png)
+- General view
+  ![Data Collection](Images/DataCollection.png)
 
-- **Push gateway**
-  - A push gateway is a component of Prometheus.
-    It's part of Prometheus, which what it does basically is that it acts as temporary storage, where application can send the metric to it.
-- **Third-party exporters**
-  - There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.
-  - This is useful for cases where it is not feasible to instrument a given system with Prometheus metrics directly (for example, HAProxy or Linux system stats).
+## 3.1. Third-party exporters
 
-## 3.1. Service Discovery
+- There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.
+- This is useful for cases where it is not feasible to instrument a given system with Prometheus metrics directly (for example, HAProxy or Linux system stats).
 
-## 3.2. Push Gateway
+## 3.2. Service Discovery
 
-![Push Gateway](Images/PushGateway.png)
+- Prometheus provides a generic HTTP Service Discovery, that enables it to discover targets over an HTTP endpoint.
+- The HTTP Service Discovery is complimentary to the supported service discovery mechanisms, and is an alternative to File-based Service Discovery.
 
-## 3.3. Node Exporter
+## 3.3. Push Gateway
+
+- A push gateway is a component of Prometheus.
+  - It's part of Prometheus, which what it does basically is that it acts as temporary storage, where application can send the metric to it.
+  - ![Push Gateway](Images/PushGateway.png)
+- Implementation detail
+  - ![Push Gateway](Images/PushGatewaySimpleCommunication.png)
+
+## 3.4. Node Exporter
 
 - Every UNIX-based kernel e.g. computer is called a Node.
 - **Node Exporter** is an official Prometheus exporter for collecting metrics that are exposed by Unix-based kernls e.g. Linux and Ubuntu.
 - Example of metrics are CPU, Disk, Memory and Network I/O.
 - **Node Exporter** can be extended with pluggable metric collectors.
 
-## 3.4. Scraping Wintows Metrics
+## 3.5. Scraping Wintows Metrics
 
 - There is no official Prometheus exporter for Windows.
 - WMI: Windows Management Instrumentation.
   - **Infrasctructure for management data and operations on Windows-based operating systems.**
 - WMS Exporter is a third-party Prometheus exporter for Windows.
 
-## 3.5. Authentication
+## 3.6. Authentication
 
- - There are many aspects to protect when we think about Prometheus, like:
-  - Securing Web UI.
-  - Securing Push Gateway.
-  - Securing Exporters.
-  - Securing Alert Manager.
+- There are many aspects to protect when we think about Prometheus, like:
+- Securing Web UI.
+- Securing Push Gateway.
+- Securing Exporters.
+- Securing Alert Manager.
 
-### 3.5.1. Command to enable SSL / HTTPs
+### 3.6.1. Command to enable SSL / HTTPs
 
 `openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout node_exporter.key -out node_exporter.crt -subj "/C=BE/ST=Antwerp/L=Brasschaat/O=Inuits/CN=localhost" `
 
-### 3.5.2. Securing Push Gateway HTTPs + Auth
+### 3.6.2. Securing Push Gateway HTTPs + Auth
 
 - Basic auth:
+
 ```
   - job_name: "pushgateway"
     scheme: https
@@ -134,7 +144,9 @@
     static_configs:
     - targets: ["localhost:9091"]
 ```
+
 - Example pushgateway.yml:
+
 ```
   tls_server_config:
     cert_file: /usr/local/etc/prom.crt
@@ -143,10 +155,11 @@
   basic_auth_users:
     admin: <my_key>
 ```
+
 - Command to start with web.yml
   - `./pushgateway --web.config.file=/usr/local/etc/pushgateway.yml`
 
-### 3.5.3. Securing Alert Manager
+### 3.6.3. Securing Alert Manager
 
 - Example prometheus.yml:
   ```
@@ -164,8 +177,9 @@
           - localhost:9093
   ```
 
-
 # 4. Tips & Tricks
+
+## 4.1. Docker
 
 - Since the targets are not running inside the prometheus container, they cannot be accessed through localhost.
 - You need to access them through the host private IP or by replacing localhost with `docker.for.mac.localhost` or `host.docker.internal`.
@@ -179,3 +193,8 @@
       static_configs:
         - targets: ["host.docker.internal:9092"]
   ```
+
+## 4.2. Dotnet MetricServer
+
+- To avoid this error _Unhandled exception. System.Net.HttpListenerException (5): Access is denied_.
+  - Run this command `netsh http add urlacl url=http://+:8008/ user=Everyone listen=yes` as administrator.

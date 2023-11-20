@@ -19,7 +19,7 @@ var requestGenerator = new Thread(() =>
 {
     while (!cancellationTokenSource.Token.IsCancellationRequested)
     {
-        var gauge = factory.CreateGauge("dot_net_pushgateway_test", "HELP");
+        var gauge = factory.CreateGauge("dotnet_pushgateway_test", "test");
         gauge.Set(new Random(DateTime.Now.Millisecond).Next() * 100);
         Thread.Sleep(100);
         Console.WriteLine("Running... {0}", DateTime.Now);
