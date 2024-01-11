@@ -155,6 +155,8 @@
   ![Adding Amazon CloudWatch DataSource](/Images/AmazonCloudWatchAddingDataSource.png)
   ![Adding Amazon CloudWatch DataSource](/Images/AmazonCloudWatchGrafanaPanelConfiguration.png)
 
+[Example CloudWatch CustomMetrics](https://github.com/jeftegoes/ExamplesUsingAwsSdk/tree/main/ExampleCloudWatchCustomMetrics)
+
 ## 3.3. Administration
 
 ![Administration diagram](/Images/AdministrationDiagram.png)
