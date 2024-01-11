@@ -15,7 +15,7 @@
 - [3. Grafana](#3-grafana)
   - [3.1. Alerts in Grafana](#31-alerts-in-grafana)
   - [3.2. Integrations](#32-integrations)
-    - [3.2.1. AWS CloudWatch](#321-aws-cloudwatch)
+    - [3.2.1. Amazon CloudWatch](#321-amazon-cloudwatch)
   - [3.3. Administration](#33-administration)
 - [4. Prometheus](#4-prometheus)
   - [4.1. Third-party exporters](#41-third-party-exporters)
@@ -143,14 +143,17 @@
 - Alerts rise when a Rule is violated.
 - A Rule indicates if a value on the graph is above or below a threshold.
 - Rules are stored in and evaluated by Rule Engine.
-
-![Alert diagram](/Images/AlertDiagram.png)
+  ![Alert diagram](/Images/AlertDiagram.png)
 
 ## 3.2. Integrations
 
-### 3.2.1. AWS CloudWatch
+### 3.2.1. Amazon CloudWatch
 
-![CloudWatch Datasource diagram](/Images/CloudWatchDatasource.png)
+![CloudWatch Datasource diagram](/Images/AmazonCloudWatchDatasource.png)
+
+- Configuration:
+  ![Adding Amazon CloudWatch DataSource](/Images/AmazonCloudWatchAddingDataSource.png)
+  ![Adding Amazon CloudWatch DataSource](/Images/AmazonCloudWatchGrafanaPanelConfiguration.png)
 
 ## 3.3. Administration
 
